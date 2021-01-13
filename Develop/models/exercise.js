@@ -11,11 +11,27 @@ const exerciseSchema = new Schema({
         type: String,
         enum: ['lift', 'cardio'],
         lowercase: true,
-        required: 'Did you lift or do cardio?'
+        required: 'Will you lift or do cardio?'
     },
     weight: {
         type: Number,
-        
+        required: 'Enter 0 for cardio exercises'
+    },
+    sets: {
+        type: Number,
+        required: 'Enter 0 for cardio exercises'
+    },
+    reps: {
+        type: Number,
+        required: 'Enter 0 for cardio exercises'
+    },
+    duration: {
+        type: Number,
+        required: 'How long is this workout?'
+    },
+    distance: {
+        type: Number,
+        required: 'Enter 0 for lift exercises'
     }
 });
 

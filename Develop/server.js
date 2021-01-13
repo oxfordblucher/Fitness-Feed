@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const PORT = process.env.PORT || 3333;
 
@@ -19,11 +20,11 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-
 })
 
-app.use(require('./routes/apiRoutes.js'));
+require('./routes/apiRoutes.js')(app)
+require('./routes/htmlRoutes.js')(app,path)
 
 app.listen(PORT, () => {
-    console.log(`App running on localhost:${PORT}`);
+    console.log(`App running on http://localhost:${PORT}`);
 });

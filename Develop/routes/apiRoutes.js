@@ -1,12 +1,17 @@
-const router = require("express").Router();
 const Exercise = require("../models/exercise.js");
+const Workout = require("../models/workout.js");
 
-router.post("/api/exercise", ({ body }, res) => {
-    Exercise.create(body)
-        .then(dbExercise => {
-            res.json(dbExercise);
-        })
-        .catch(err => {
-            res.status(400).json(err);
-        });
-});
+module.exports = (app) => {
+    app.get('/api/workouts', (req, res) => {
+        db.Workout.find({})
+            .populate("exercises")
+            .then(dbWorkout => {
+                res.json(dbWorkout);
+            })
+            .catch(err => {
+                res.json(err);
+            })
+    });
+
+    app.
+}
