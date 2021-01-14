@@ -2,8 +2,8 @@ const db = require('../models');
 
 module.exports = (app) => {
     app.get('/api/workouts', (req, res) => {
-        db.Workout.find({})
-            .populate("exercises")
+        db.Workout.find({}).sort({'day': 'desc'}).limit(1)
+            .populate('exercises')
             .then(dbWorkout => {
                 res.json(dbWorkout);
             })
@@ -35,11 +35,11 @@ module.exports = (app) => {
 
     app.put('/api/workouts/:id', (req, res) => {
         db.Exercise.create(req.body)
-            .then((data) => db.Workout.findOneAndUpdate(
+            .then(dbExercise => db.Workout.findOneAndUpdate(
                 {_id: req.params.id},
                 {
                     $inc: {totalDuration: req.body.duration},
-                    $push: {exercises: req.body}
+                    $push: {exercises: dbExercise}
                 },
                 {new: true}
             ))
